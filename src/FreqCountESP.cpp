@@ -122,7 +122,7 @@ void _FreqCountESP::_begin(uint8_t freqPin, uint8_t freqPinIOMode)
 #endif  // USE_PCNT
   if(mTriggerPin == 0) {
     // Not external trigger, start internal timer.
-    timerAlarmEnable(mTimer);
+    timerStart(mTimer);
   }
 }
 
@@ -131,9 +131,9 @@ void _FreqCountESP::begin(uint8_t freqPin, uint16_t timerMs, uint8_t hwTimerId, 
   // Count frequency using internal timer.
   // mTriggerPin == 0 means we're using internal timer.
   mTriggerPin = 0;
-  mTimer = timerBegin(hwTimerId, 80, true);
-  timerAttachInterrupt(mTimer, &onTimer, true);
-  timerAlarmWrite(mTimer, timerMs * 1000, true);
+  mTimer = timerBegin(1000000);
+  timerAttachInterrupt(mTimer, &onTimer);
+  timerAlarm(mTimer, timerMs * 1000, true, 0);
 
   _begin(freqPin, freqPinIOMode);
 }
@@ -169,7 +169,7 @@ void _FreqCountESP::end()
   detachInterrupt(mPin);
 #endif
   if(mTriggerPin == 0) {
-    timerAlarmDisable(mTimer);
+    timerStop(mTimer);
     timerDetachInterrupt(mTimer);
     timerEnd(mTimer);
   } else {
