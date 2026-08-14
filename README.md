@@ -21,12 +21,14 @@
 - [About](#about)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Accuracy](#accuracy)
 - [Credits](#credits)
 - [License](#license)
 
 ## About <a name="about"></a>
 
 A frequency counter library for esp32. It counts the numbers of pulses on a specified pin during a fixed time frame using native interrupts and timers. It only supports one instance per sketch for now.
+This is a migration from Arduino ESP32 core 2.0 to 3.0.
 
 ## Installation <a name="installation"></a>
 
@@ -69,6 +71,12 @@ void loop()
   }
 }
 ```
+
+## Accuracy <a name="accuracy"></a>
+
+The time frame is accomplished by the software timer and the interrupts.  So, the time frame fluctuates by ±0.3 microseconds.
+It is sufficient for below 1MHz, however, at around 30 MHz, a fluctuation of ±9 Hz occurs.
+An error of ±32,767 counts may occur during the process of integrating the PCNT hardware count with the software-based overflow count.
 
 ## Credits <a name="credits"></a>
 
