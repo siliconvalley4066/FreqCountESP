@@ -28,7 +28,13 @@
 ## About <a name="about"></a>
 
 A frequency counter library for esp32. It counts the numbers of pulses on a specified pin during a fixed time frame using native interrupts and timers. It only supports one instance per sketch for now.
+
 This is a migration from Arduino ESP32 core 2.0 to 3.0.
+
+## Platform
+
+- Arduino IDE 2.3.10
+- Board support: Arduino core for the ESP32 3.3.11
 
 ## Installation <a name="installation"></a>
 
